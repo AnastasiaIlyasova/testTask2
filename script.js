@@ -18,16 +18,13 @@ class Product{
 
 const stuff1 = new Product(3, 333)
 const stuff2 = new Product(5, 2977)
-const stuff3 = new Product(8,117000000)
+const stuff3 = new Product(8, 117000000)
 
 const products = [stuff1, stuff2, stuff3];
 
 class Shop extends Product{
-    constructor(id, price, products) {
+    constructor(id, price) {
         super(id, price)
-    }
-    addProducts(products){
-
     }
     getProduct(id){
         this.id=id
