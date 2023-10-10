@@ -1,42 +1,58 @@
-let currentProduct
-
-class Product{
+class Product {
     constructor(id, price) {
         this.id = id
         this.price = price
-    };
-  setPrice(price){
+    }
+    setPrice(price) {
         this.price = price
-        return currentProduct
-   };
-    withDiscount(percent){
-        this.percent = percent;
-        currentProduct.discountedPrice = currentProduct.price - currentProduct.price / 100 * percent;
-        return currentProduct
-    };
+        return this
+    }
+    withDiscount(percent) {
+        this.discountedPrice = this.price - this.price / 100 * percent;
+        return this
+    }
 }
 
-const stuff1 = new Product(3, 333)
-const stuff2 = new Product(5, 2977)
-const stuff3 = new Product(8, 117000000)
-
-const products = [stuff1, stuff2, stuff3];
-
-class Shop extends Product{
-    constructor(id, price) {
-        super(id, price)
+class Shop {
+    constructor() {
+        this.products = []
     }
-    getProduct(id){
+    addProducts(products) {
+        this.products = products.map(product => new Product(product.id, product.price))
+        return this.products
+    }
+    getProduct(id) {
         this.id=id
-        for(let i=0; i<=products.length;i++){
-            if(this.id === products[i].id){
-                 currentProduct = products[i]
-                return currentProduct
+        for(let i=0; i<=this.products.length; i++){
+            if(this.id === this.products[i].id){
+                return this.products[i]
             }
         }
     }
 }
+
+var products = [
+    {
+        "id": 3,
+        "name": "Cake",
+        "price": 333,
+        "description": "The tastiest cake in the world."
+    },
+    {
+        "id": 5,
+        "name": "Petroleum",
+        "price": 2977,
+        "description": "Black gold."
+    },
+    {
+        "id": 8,
+        "name": "Moscow metro logo",
+        "price": 117000000,
+        "description": "Remove circle from logo"
+    }
+];
+
 var shop = new Shop();
+shop.addProducts(products);
 
 console.log(shop.getProduct(5).setPrice(3224).withDiscount(10).discountedPrice === 2901.6);
-
